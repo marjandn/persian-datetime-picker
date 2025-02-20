@@ -267,9 +267,8 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
         return;
       }
     }
-    final JalaliRange? selectedRange = _hasSelectedDateRange
-        ? JalaliRange(start: _selectedStart!, end: _selectedEnd!)
-        : null;
+    final JalaliRange? selectedRange =
+        _hasSelectedDateRange ? JalaliRange(start: _selectedStart!, end: _selectedEnd!) : null;
 
     Navigator.pop(context, selectedRange);
   }
@@ -309,8 +308,7 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
     setState(() => _selectedEnd = date);
   }
 
-  bool get _hasSelectedDateRange =>
-      _selectedStart != null && _selectedEnd != null;
+  bool get _hasSelectedDateRange => _selectedStart != null && _selectedEnd != null;
 
   @override
   Widget build(BuildContext context) {
@@ -343,8 +341,7 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
         );
         size = mediaQuery.size;
         insetPadding = const EdgeInsets.all(0.0);
-        shape = const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.zero));
+        shape = const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.zero));
         elevation = 0;
         break;
 
@@ -391,12 +388,11 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
           cancelText: widget.cancelText ?? 'لغو',
           helpText: widget.helpText ?? 'انتخاب تاریخ',
         );
-        final DialogTheme dialogTheme = Theme.of(context).dialogTheme;
+        final DialogThemeData dialogTheme = Theme.of(context).dialogTheme;
         size = orientation == Orientation.portrait
             ? _inputPortraitDialogSize
             : _inputLandscapeDialogSize;
-        insetPadding =
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0);
+        insetPadding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0);
         shape = dialogTheme.shape;
         elevation = dialogTheme.elevation ?? 24;
         break;
@@ -466,29 +462,23 @@ class _CalendarRangePickerDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
+    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
     final Orientation orientation = MediaQuery.of(context).orientation;
     final TextTheme textTheme = theme.textTheme;
-    final Color headerForeground = colorScheme.brightness == Brightness.light
-        ? colorScheme.onPrimary
-        : colorScheme.onSurface;
+    final Color headerForeground =
+        colorScheme.brightness == Brightness.light ? colorScheme.onPrimary : colorScheme.onSurface;
     final Color headerDisabledForeground = headerForeground.withOpacity(0.38);
-    final String startDateText = utils.formatRangeStartDate(
-        localizations, selectedStartDate, selectedEndDate);
-    final String endDateText = utils.formatRangeEndDate(
-        localizations, selectedStartDate, selectedEndDate, Jalali.now());
+    final String startDateText =
+        utils.formatRangeStartDate(localizations, selectedStartDate, selectedEndDate);
+    final String endDateText =
+        utils.formatRangeEndDate(localizations, selectedStartDate, selectedEndDate, Jalali.now());
     final TextStyle? headlineStyle = textTheme.titleLarge;
     final TextStyle? startDateStyle = headlineStyle?.apply(
-        color: selectedStartDate != null
-            ? headerForeground
-            : headerDisabledForeground);
+        color: selectedStartDate != null ? headerForeground : headerDisabledForeground);
     final TextStyle? endDateStyle = headlineStyle?.apply(
-        color: selectedEndDate != null
-            ? headerForeground
-            : headerDisabledForeground);
-    final TextStyle saveButtonStyle = textTheme.labelLarge!.apply(
-        color: onConfirm != null ? headerForeground : headerDisabledForeground);
+        color: selectedEndDate != null ? headerForeground : headerDisabledForeground);
+    final TextStyle saveButtonStyle = textTheme.labelLarge!
+        .apply(color: onConfirm != null ? headerForeground : headerDisabledForeground);
 
     final IconButton entryModeIcon = IconButton(
       padding: EdgeInsets.zero,
@@ -521,8 +511,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
           bottom: PreferredSize(
             preferredSize: const Size(double.infinity, 64),
             child: Row(children: <Widget>[
-              SizedBox(
-                  width: MediaQuery.of(context).size.width < 360 ? 42 : 72),
+              SizedBox(width: MediaQuery.of(context).size.width < 360 ? 42 : 72),
               Expanded(
                 child: Semantics(
                   label: '$helpText $startDateText to $endDateText',
@@ -612,14 +601,10 @@ class _PInputDateRangePickerDialog extends StatelessWidget {
   final String cancelText;
   final String helpText;
 
-  String _formatDateRange(
-      BuildContext context, Jalali? start, Jalali? end, Jalali? now) {
-    final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
-    final String startText =
-        utils.formatRangeStartDate(localizations, start, end);
-    final String endText =
-        utils.formatRangeEndDate(localizations, start, end, now);
+  String _formatDateRange(BuildContext context, Jalali? start, Jalali? end, Jalali? now) {
+    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+    final String startText = utils.formatRangeStartDate(localizations, start, end);
+    final String endText = utils.formatRangeEndDate(localizations, start, end, now);
     if (start == null || end == null) {
       return localizations.unspecifiedDateRange;
     }
@@ -637,16 +622,14 @@ class _PInputDateRangePickerDialog extends StatelessWidget {
     final Orientation orientation = MediaQuery.of(context).orientation;
     final TextTheme textTheme = theme.textTheme;
 
-    final Color dateColor = colorScheme.brightness == Brightness.light
-        ? colorScheme.onPrimary
-        : colorScheme.onSurface;
+    final Color dateColor =
+        colorScheme.brightness == Brightness.light ? colorScheme.onPrimary : colorScheme.onSurface;
     final TextStyle? dateStyle = orientation == Orientation.landscape
         ? textTheme.bodyLarge?.apply(color: dateColor)
         : textTheme.headlineSmall?.apply(color: dateColor);
-    final String dateText = _formatDateRange(
-        context, selectedStartDate, selectedEndDate, currentDate);
-    final String semanticDateText = selectedStartDate != null &&
-            selectedEndDate != null
+    final String dateText =
+        _formatDateRange(context, selectedStartDate, selectedEndDate, currentDate);
+    final String semanticDateText = selectedStartDate != null && selectedEndDate != null
         ? '${selectedStartDate!.formatMediumDate()} – ${selectedEndDate!.formatMediumDate()}'
         : '';
 

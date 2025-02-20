@@ -177,9 +177,7 @@ class _DatePickerDialog extends StatefulWidget {
         'initialDate ${this.initialDate} must be on or after firstDate ${this.firstDate}.');
     assert(!this.initialDate.isAfter(this.lastDate),
         'initialDate ${this.initialDate} must be on or before lastDate ${this.lastDate}.');
-    assert(
-        selectableDayPredicate == null ||
-            selectableDayPredicate!(this.initialDate),
+    assert(selectableDayPredicate == null || selectableDayPredicate!(this.initialDate),
         'Provided initialDate ${this.initialDate} must satisfy provided selectableDayPredicate');
   }
 
@@ -239,7 +237,7 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
   }
 
   void _handleOk() {
-    if (_entryMode == PDatePickerEntryMode.input ||  _entryMode == DatePickerEntryMode.inputOnly) {
+    if (_entryMode == PDatePickerEntryMode.input || _entryMode == DatePickerEntryMode.inputOnly) {
       final FormState form = _formKey.currentState!;
       if (!form.validate()) {
         setState(() => _autoValidate = true);
@@ -310,16 +308,14 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
     final TextTheme textTheme = theme.textTheme;
     // Constrain the textScaleFactor to the largest supported value to prevent
     // layout issues.
-    final double textScaleFactor =
-        math.min(MediaQuery.of(context).textScaleFactor, 1.3);
+    final double textScaleFactor = math.min(MediaQuery.of(context).textScaleFactor, 1.3);
 
     final String dateText = _selectedDate != null
         ? _selectedDate!.formatMediumDate()
         // TODO(darrenaustin): localize 'Date'
         : 'Date';
-    final Color dateColor = colorScheme.brightness == Brightness.light
-        ? colorScheme.onPrimary
-        : colorScheme.onSurface;
+    final Color dateColor =
+        colorScheme.brightness == Brightness.light ? colorScheme.onPrimary : colorScheme.onSurface;
     final TextStyle? dateStyle = orientation == Orientation.landscape
         ? textTheme.titleMedium?.copyWith(color: dateColor)
         : textTheme.headlineSmall?.copyWith(color: dateColor);
@@ -339,7 +335,7 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
       ],
     );
 
-    PCalendarDatePicker pCalendarDatePicker () {
+    PCalendarDatePicker pCalendarDatePicker() {
       return PCalendarDatePicker(
         key: _calendarPickerKey,
         initialDate: _selectedDate!,
@@ -388,9 +384,8 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
       case PDatePickerEntryMode.input:
         picker = Form(
           key: _formKey,
-          autovalidateMode: _autoValidate
-              ? AutovalidateMode.onUserInteraction
-              : AutovalidateMode.disabled,
+          autovalidateMode:
+              _autoValidate ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
           child: pInputDatePickerFormField(),
         );
         entryModeIcon = Icons.calendar_today;
@@ -401,9 +396,8 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
       case PDatePickerEntryMode.inputOnly:
         picker = Form(
           key: _formKey,
-          autovalidateMode: _autoValidate
-              ? AutovalidateMode.onUserInteraction
-              : AutovalidateMode.disabled,
+          autovalidateMode:
+              _autoValidate ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
           child: pInputDatePickerFormField(),
         );
         // TODO(darrenaustin): localize 'Switch to calendar'
@@ -425,16 +419,14 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
     );
 
     final Size dialogSize = _dialogSize(context)! * textScaleFactor;
-    final DialogTheme dialogTheme = Theme.of(context).dialogTheme;
+    final DialogThemeData dialogTheme = Theme.of(context).dialogTheme;
     return Dialog(
-      insetPadding:
-          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
       // The default dialog shape is radius 2 rounded rect, but the spec has
       // been updated to 4, so we will use that here for the Date Picker, but
       // only if there isn't one provided in the theme.
       shape: dialogTheme.shape ??
-          const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4.0))),
+          const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
       clipBehavior: Clip.antiAlias,
       child: Directionality(
         textDirection: TextDirection.rtl,
